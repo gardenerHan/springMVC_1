@@ -6,11 +6,44 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+/**
+ * 类定义处标记的@RequestMapping 限定了处理器类可以处理所有 URI 为 /springmvc的请求，
+ * 它相对于 WEB 容器部署的根路径
+ */
 @RequestMapping("/springmvc")
 @Controller
 public class SpringTest {
     private static final String SUCCESS = "success" ;
+
+    /**
+     * 处理器类可以定义多个处理方法，处理来自/springmvc 下的请求 这个方法可以处理来自/springmvc/testRequestMapping的请求
+     * @return
+     */
+    @RequestMapping("/testRequestMapping")
+    public String testRequestMapping(){
+        System.out.println("testRequestMapping");
+        return SUCCESS ;
+    }
+
+
+    /**
+     * 映射请求方法
+     *
+     */
+    @RequestMapping(value = "/testMethod", method = RequestMethod.POST)
+    public String testMethod(){
+        System.out.println("testMethod");
+        return SUCCESS ;
+    }
+
+    /**
+     * 映射请求参数或请求头
+     * @return
+     */
+    @RequestMapping(value = "/testParamAndHeaders",params = {"username","age!=10"},headers = {})
+    public String testParamsAndHeaders(){
+        return SUCCESS ;
+    }
 
 
     @RequestMapping(value = "/testRest/{id}",method = RequestMethod.GET)
@@ -59,21 +92,9 @@ public class SpringTest {
         return SUCCESS ;
     }
 
-    @RequestMapping("/testRequestMapping")
-    public String testRequestMapping(){
-        System.out.println("testRequestMapping");
-        return SUCCESS ;
-    }
 
-    @RequestMapping(value = "/testMethod", method = RequestMethod.POST)
-    public String testMethod(){
-        System.out.println("testMethod");
-        return SUCCESS ;
-    }
 
-    @RequestMapping(value = "/testParamAndHeaders",params = {"username","age!=10"},headers = {})
-    public String testParamsAndHeaders(){
-        return SUCCESS ;
-    }
+
+
 }
 

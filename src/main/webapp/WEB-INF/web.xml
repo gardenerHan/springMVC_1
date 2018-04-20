@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <!--配置org.springframework.web.filter.HiddenHttpMethodFilter:可以把POST请求转为DELETE　或　POST　请求-->
+
 
 
     <!--编码过滤器-->
@@ -22,7 +22,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
+    <!--配置org.springframework.web.filter.HiddenHttpMethodFilter:可以把POST请求转为DELETE　或　POST　请求-->
     <filter>
         <filter-name>HiddenHttpMethodFilter</filter-name>
         <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
