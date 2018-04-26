@@ -10,20 +10,30 @@
 <html>
 <head>
     <title>restful crud list</title>
+    <%--处理静态资源--%>
+    <script type="text/javascript" src="/scripts/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".delete").click(function () {
+                var href = $(this).attr("href") ;
+                $("form").attr("action",href).submit() ;
+                return false ;
+            }) ;
+        })
+    </script>
 </head>
 <body>
 
 
-<%--  private Integer id ;
-    private String lastName ;
-    private String email ;
-    private Integer gender ;
-    private Department department ;--%>
-<c:if test="${employees == null}">
+<form name="form" method="post" action="">
+    <input type="hidden" name="_method" value="DELETE">
+</form>
+
+<c:if test="${employees == null || employees.size()==0}">
     <p style="color: red;">没有任何内容</p>
 </c:if>
 
-<c:if test="${employees != null}">
+<c:if test="${employees != null && employees.size() != 0}">
     <table border="1" cellspacing="0" cellpadding="10">
         <tr>
             <td>ID</td>

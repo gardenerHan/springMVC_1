@@ -5,9 +5,7 @@ import com.ifox.restful_CRUD.dao.EmployeeDao;
 import com.ifox.restful_CRUD.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -41,6 +39,28 @@ public class EmployeeHandler {
     @RequestMapping(value = "/emp/{id}",method = RequestMethod.DELETE)
     public String delete(@PathVariable("id") Integer id){
         employeeDao.delete(id);
+        return "redirect:/emps" ;
+    }
+
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.GET)
+    public String input(@PathVariable("id") Integer id ,Map<String,Object> map){
+        map.put("employee",employeeDao.get(id)) ;
+        map.put("departments",departmentDao.getDepartments()) ;
+        return "input" ;
+    }
+
+    @ModelAttribute
+    public void getEmployee(@RequestParam(value = "id",required = false) Integer id , Map<String,Object> map){
+        if (id != null) {
+            Employee e = employeeDao.get(id);
+            map.put("employee",e) ;
+        }
+    }
+
+    @RequestMapping(value = "/emp",method = RequestMethod.PUT )
+    public String update(Employee employee){
+       // employee.setLastName(employeeDao.get(employee.getId()).getLastName());
+        employeeDao.save(employee);
         return "redirect:/emps" ;
     }
 

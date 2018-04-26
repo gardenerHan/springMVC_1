@@ -8,15 +8,31 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
     <title>restful CRUD input</title>
 </head>
 <body>
-<form:form action="emp" method="post" modelAttribute="employee">
+
+    <form action="testConversionServiceConverer" method="post">
+        <%--KK-kk@sicnu.com-0-105--%>
+        Employee: <input type="text" name="employee">
+        <input type="submit" value="Submit">
+    </form>
+
+<%----%>
+<form:form action="${pageContext.request.contextPath}/emp" method="post" modelAttribute="employee">
+    <c:if test="${employee.id == null}">
     LastName: <form:input path="lastName"></form:input>
+    </c:if>
     <br>
+
+    <c:if test="${employee.id != null}">
+        <form:hidden path="id"></form:hidden>
+        <input type="hidden" name="_method" value="PUT">
+    </c:if>
     Email:<form:input path="email"></form:input>
     <br>
     <%
