@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collection;
 import java.util.Map;
 
 @Controller
@@ -88,6 +89,13 @@ public class EmployeeHandler {
         return "redirect:/emps" ;
     }
 
+
+    @ResponseBody
+    @RequestMapping("/testJson")
+    public Collection<Employee> testJson(){
+
+        return employeeDao.getAll() ;
+    }
 
 
 }

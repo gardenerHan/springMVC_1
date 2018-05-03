@@ -33,6 +33,7 @@
     <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
     <!--<mvc:annotation-driven></mvc:annotation-driven>-->
 
+    <!--静态资源处理-->
     <mvc:default-servlet-handler></mvc:default-servlet-handler>
 
     <!--配置conversionService-->
