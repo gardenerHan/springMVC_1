@@ -26,6 +26,7 @@
 <form:form action="${pageContext.request.contextPath}/emp" method="post" modelAttribute="employee">
     <c:if test="${employee.id == null}">
     LastName: <form:input path="lastName"></form:input>
+        <form:errors path="lastName" cssStyle="color: red"></form:errors>
     </c:if>
     <br>
 
@@ -34,6 +35,7 @@
         <input type="hidden" name="_method" value="PUT">
     </c:if>
     Email:<form:input path="email"></form:input>
+    <form:errors path="email"></form:errors>
     <br>
     <%
         Map<String,String> genders = new HashMap<>() ;
@@ -45,6 +47,10 @@
     <br>
     Department:<form:select path="department.id" items="${departments}" itemLabel="departmentName" itemValue="id" ></form:select>
     <br>
+    Birth:<form:input path="birth"></form:input>
+    <form:errors path="birth"></form:errors>
+    <br>
+    Salary:<form:input path="salary"></form:input>
     <input type="submit" value="Submit">
 </form:form>
 

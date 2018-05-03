@@ -1,11 +1,49 @@
 package com.ifox.restful_CRUD.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+import java.util.Date;
+
 public class Employee {
     private Integer id ;
+
+    @NotEmpty
     private String lastName ;
+
+    @Email
     private String email ;
+
     private Integer gender ;
     private Department department ;
+
+
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date birth ;
+
+    @NumberFormat(pattern = "#,###,###.#")
+    private Float salary ;
+
+
+    public Float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Float salary) {
+        this.salary = salary;
+    }
+
+    public Date getBirth() {
+        return birth;
+    }
+
+    public void setBirth(Date birth) {
+        this.birth = birth;
+    }
 
     public Integer getId() {
         return id;
@@ -48,16 +86,6 @@ public class Employee {
     }
 
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", gender=" + gender +
-                ", department=" + department +
-                '}';
-    }
 
     public Employee() {
     }
@@ -68,5 +96,27 @@ public class Employee {
         this.email = email;
         this.gender = gender;
         this.department = department;
+    }
+
+    public Employee(Integer id, String lastName, String email, Integer gender, Department department, Date birth) {
+        this.id = id;
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender;
+        this.department = department;
+        this.birth = birth;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", department=" + department +
+                ", birth=" + birth +
+                ", salary=" + salary +
+                '}';
     }
 }

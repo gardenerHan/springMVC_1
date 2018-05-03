@@ -5,8 +5,12 @@ import com.ifox.restful_CRUD.dao.EmployeeDao;
 import com.ifox.restful_CRUD.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -16,6 +20,15 @@ public class EmployeeHandler {
 
     @Autowired
     private DepartmentDao departmentDao ;
+
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        System.out.println("initBinder............");
+        //忽略lastName的提交
+       // binder.setDisallowedFields("lastName");
+
+    }
 
     @RequestMapping("/emps")
     public String list(Map<String, Object> map) {
@@ -31,7 +44,18 @@ public class EmployeeHandler {
     }
 
     @RequestMapping(value = "/emp",method = RequestMethod.POST)
-    public String save(Employee employee){
+    public String save(@Valid Employee employee , BindingResult result , Map<String,Object> map){
+
+        if (result.getErrorCount() > 0 ){
+            System.out.println("出错了:");
+            for (FieldError error : result.getFieldErrors()){
+                System.out.println(error.getField()+":"+error.getDefaultMessage());
+            }
+            //出错，转向指定页面
+            map.put("departments",departmentDao.getDepartments()) ;
+            return  "input" ;
+        }
+        System.out.println("save:"+employee);
         employeeDao.save(employee);
         return "redirect:/emps" ;
     }
@@ -63,5 +87,7 @@ public class EmployeeHandler {
         employeeDao.save(employee);
         return "redirect:/emps" ;
     }
+
+
 
 }
