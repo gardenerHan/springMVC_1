@@ -50,7 +50,7 @@
     Birth:<form:input path="birth"></form:input>
     <form:errors path="birth"></form:errors>
     <br>
-    Salary:<form:input path="salary"></form:input>
+    <%--Salary:<form:input path="salary"></form:input>--%>
     <input type="submit" value="Submit">
 </form:form>
 
