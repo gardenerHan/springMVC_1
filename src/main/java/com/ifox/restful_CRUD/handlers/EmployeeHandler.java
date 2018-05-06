@@ -3,15 +3,25 @@ package com.ifox.restful_CRUD.handlers;
 import com.ifox.restful_CRUD.dao.DepartmentDao;
 import com.ifox.restful_CRUD.dao.EmployeeDao;
 import com.ifox.restful_CRUD.entities.Employee;
+import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.xml.ws.spi.http.HttpHandler;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 @Controller
@@ -96,6 +106,65 @@ public class EmployeeHandler {
 
         return employeeDao.getAll() ;
     }
+
+
+    @ResponseBody
+    @RequestMapping("/testHttpMessageConverter")
+    public String testHttpMessageConverter(@RequestBody String body){
+
+        System.out.println(body);
+
+        return "Hello World !!! " + new Date() ;
+
+    }
+
+
+
+    //当你的index.jsp 在webaap（即根）下的crud文件下时，需要 @RequestMapping("/crud/testHttpMessageConverter")这样，才能正常在浏览器显示，否则404
+    @ResponseBody
+    @RequestMapping("/crud/testHttpMessageConverter")
+    public String testHttpMessageConverter_CRUD(@RequestBody String body){
+
+        System.out.println(body);
+
+        return "Hello World !!! crud " + new Date() ;
+
+    }
+
+    @SuppressWarnings("all")
+    @RequestMapping("/crud/testResponseEntity")
+    public ResponseEntity<byte[]> testResponseEntity_CRUD(HttpSession httpSession) throws IOException {
+        byte[] body = null ;
+        ServletContext servletContext = httpSession.getServletContext() ;
+        InputStream in = servletContext.getResourceAsStream("/files/index.jsp") ;
+        body = new byte[in.available()] ;
+        in.read(body) ;
+        HttpHeaders httpHeaders = new HttpHeaders() ;
+        httpHeaders.add("Content-Disposition","attachment;filename=index.jsp");
+        HttpStatus httpStatus = HttpStatus.OK ;
+        ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(body,httpHeaders,httpStatus) ;
+        return response ;
+    }
+
+
+
+    @SuppressWarnings("all")
+    @RequestMapping("testResponseEntity")
+    public ResponseEntity<byte[]> testResponseEntity(HttpSession httpSession) throws IOException {
+
+        byte[] body = null ;
+
+        ServletContext servletContext = httpSession.getServletContext() ;
+        InputStream in = servletContext.getResourceAsStream("/files/index.jsp") ;
+        body = new byte[in.available()] ;
+        in.read(body) ;
+        HttpHeaders httpHeaders = new HttpHeaders() ;
+        httpHeaders.add("Content-Disposition","attachment;filename=index.jsp");
+        HttpStatus httpStatus = HttpStatus.OK ;
+        ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(body,httpHeaders,httpStatus) ;
+        return response ;
+    }
+
 
 
 }

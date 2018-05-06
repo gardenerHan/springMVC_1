@@ -23,6 +23,5 @@
     <br><br>
     <a href="/springmvc/testPathVariable/1" >test PathVariable</a>
 
-
 </body>
 </html>

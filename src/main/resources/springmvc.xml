@@ -27,6 +27,8 @@
     <!--配置直接转发的页面-->
     <!--可以直接转发相应的页面,无需再经过Handler方法-->
     <mvc:view-controller path="success" view-name="success"></mvc:view-controller>
+    <!--<mvc:view-controller path="i18n" view-name="i18n"></mvc:view-controller>-->
+    <mvc:view-controller path="i18n2" view-name="i18n2"></mvc:view-controller>
 
     <!--在实际开发中通常需要配置mvc:annotation-driven标签-->
     <!--此处和 @DateTimeFormat(pattern = "yyyy-MM-dd")冲突-->
@@ -47,4 +49,17 @@
             </set>
         </property>
     </bean>
+
+
+
+    <!--配置:SessionLocaleResolver-->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
+
+    <!--配置LocaleChangeInterceptor-->
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+    </mvc:interceptors>
+
+
+
 </beans>

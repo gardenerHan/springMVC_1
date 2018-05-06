@@ -29,6 +29,18 @@
 </head>
 <body>
     <a href="/emps">list page</a>
+    <br>
     <a href="/testJson" id="testJson">Test Json</a>
+    <br><br>
+    <form action="testHttpMessageConverter" method="post"  enctype="multipart/form-data">
+        File: <input type="file" name="file"><br>
+        DESC: <input type="text" name="desc"><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <br><br>
+
+    <a href="testResponseEntity" >testResponseEntity</a>
+
 </body>
 </html>
