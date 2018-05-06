@@ -11,6 +11,13 @@
     <title>TestFileuploadHandler</title>
 </head>
 <body>
-    <form action="testFileupload"
+<%--注意method="post" 必填 ,否则:
+    Request processing failed; nested exception is org.springframework.web.multipart.MultipartException: Current request is not a multipart request
+--%>
+    <form action="testFileupload" enctype="multipart/form-data" method="post">
+        File: <input type="file" name="file">
+        DESC: <input type="text" name="desc">
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
