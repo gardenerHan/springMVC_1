@@ -55,8 +55,11 @@
     <!--配置:SessionLocaleResolver-->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
 
-    <!--配置LocaleChangeInterceptor-->
+
     <mvc:interceptors>
+        <!--配置自定义拦截器-->
+            <bean class="com.ifox.restful_CRUD.interceptor.FirstInterceptor"></bean>
+        <!--配置LocaleChangeInterceptor-->
         <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
     </mvc:interceptors>
 
@@ -65,6 +68,8 @@
         <property name="defaultEncoding" value="UTF-8"></property>
         <property name="maxInMemorySize" value="1024000"></property>
     </bean>
+
+
 
 
 
